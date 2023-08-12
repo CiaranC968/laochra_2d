@@ -1,9 +1,9 @@
 import pygame
 import sys
 from button import Button
-from levels.play_screen import PlayScreen
+from menu_screens.play_screen import PlayScreen
 
-from levels.options_screen import OptionsScreen
+from menu_screens.options_screen import OptionsScreen
 from config.config_manager import ConfigService
 config = ConfigService()
 

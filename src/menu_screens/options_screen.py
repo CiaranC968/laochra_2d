@@ -4,18 +4,21 @@ import pygame.mixer
 from button import Button
 from config.config_manager import ConfigService
 
-config = ConfigService()
-# Initialize Pygame
+config_service = ConfigService()
+config = config_service.get_config()
 pygame.mixer.init()
 pygame.init()
+
 
 class OptionsScreen:
     def __init__(self):
         self.sound = pygame.mixer.Sound("sounds/Celtic_01_main_menu.mp3")
-        self.SCREEN = pygame.display.set_mode((config.get_config()['screen_width'], config.get_config()['screen_height']))
+        self.SCREEN = pygame.display.set_mode(
+            (config['screen_width'], config['screen_height']))
         pygame.display.set_caption("Options Screen")
         self.BG = pygame.image.load("images/main_background.jpg")
-        self.BG = pygame.transform.scale(self.BG, (config.get_config()['screen_width'], config.get_config()['screen_height']))
+        self.BG = pygame.transform.scale(self.BG,
+                                         (config['screen_width'], config['screen_height']))
 
     def get_font(self, size):
         return pygame.font.Font("fonts/MedievalMystery.ttf", size)
@@ -32,8 +35,8 @@ class OptionsScreen:
 
             OPTIONS_BACK = Button(pos=(640, 460),
                                   text_input="BACK", font=self.get_font(75),
-                                  base_color=config.get_config()['font_colour'],
-                                  hovering_color=config.get_config()['hovering_font_colour'])
+                                  base_color=config['font_colour'],
+                                  hovering_color=config['hovering_font_colour'])
 
             OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
             OPTIONS_BACK.update(self.SCREEN)
