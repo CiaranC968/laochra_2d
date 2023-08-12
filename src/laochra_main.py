@@ -1,16 +1,17 @@
 import pygame
 import sys
-import os
 from button import Button
 from levels.play_screen import PlayScreen
 
 from levels.options_screen import OptionsScreen
 from config.config_manager import ConfigService
+
 config = ConfigService()
 
 
 class MainMenu:
     def __init__(self, config):
+        self.menu_mouse_pos = None
         self.config = config
         self.play_screen = PlayScreen()
         self.settings = OptionsScreen()
@@ -21,17 +22,17 @@ class MainMenu:
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
         self.play_button = Button(
-                                  pos=(config['screen_width'] // 2, 250),
-                                  text_input="PLAY", font=self.FONT, base_color=config['font_colour'],
-                                  hovering_color=config['hovering_font_colour'])
+            pos=(config['screen_width'] // 2, 250),
+            text_input="PLAY", font=self.FONT, base_color=config['font_colour'],
+            hovering_color=config['hovering_font_colour'])
         self.options_button = Button(
-                                     pos=(config['screen_width'] // 2, 400),
-                                     text_input="OPTIONS", font=self.FONT, base_color=config['font_colour'],
-                                     hovering_color=config['hovering_font_colour'])
+            pos=(config['screen_width'] // 2, 400),
+            text_input="OPTIONS", font=self.FONT, base_color=config['font_colour'],
+            hovering_color=config['hovering_font_colour'])
         self.quit_button = Button(
-                                  pos=(config['screen_width'] // 2, 550),
-                                  text_input="QUIT", font=self.FONT, base_color=config['font_colour'],
-                                  hovering_color=config['hovering_font_colour'])
+            pos=(config['screen_width'] // 2, 550),
+            text_input="QUIT", font=self.FONT, base_color=config['font_colour'],
+            hovering_color=config['hovering_font_colour'])
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -51,7 +52,14 @@ class MainMenu:
         while True:
             self.menu_mouse_pos = pygame.mouse.get_pos()
             self.SCREEN.blit(self.BG, (0, 0))
-            self.SCREEN.blit(self.FONT.render("MAIN MENU", True, "#b68f40"), self.FONT.size("MAIN MENU"))
+
+            main_menu_text = self.FONT.render("MAIN MENU", True, "#b68f40")
+            text_width, text_height = main_menu_text.get_size()
+
+            text_x = (self.config['screen_width'] - text_width) // 2 + 5
+            text_y = self.config['screen_height'] // 2 - text_height - 180  # Adjust the value as needed
+
+            self.SCREEN.blit(main_menu_text, (text_x, text_y))
 
             for button in [self.play_button, self.options_button, self.quit_button]:
                 button.changeColor(self.menu_mouse_pos)
@@ -79,4 +87,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

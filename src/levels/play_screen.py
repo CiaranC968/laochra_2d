@@ -26,7 +26,7 @@ class PlayScreen:
 
             self.SCREEN.fill("white")
 
-            PLAY_TEXT = self.get_font(45).render("This is the PLAY screen.", True, "White")
+            PLAY_TEXT = self.get_font(45).render("This is the PLAY screen.", True, config.get_config()['font_colour'])
             PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
             self.SCREEN.blit(PLAY_TEXT, PLAY_RECT)
 
