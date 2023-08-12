@@ -7,7 +7,8 @@ class ConfigService:
             'font_colour': 'black',
             'hovering_font_colour': '#b68f40',
             'background': 'images/main_background.png',
-            'menu_music': 'sounds/Celtic_01_main_menu.mp3'
+            'menu_music': 'sounds/Celtic_01_main_menu.mp3',
+            'level_1': 'images/level_1.png'
 
             # Add more configuration keys and values as needed
         }

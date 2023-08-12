@@ -3,8 +3,6 @@ import sys
 from button import Button
 
 from config.config_manager import ConfigService
-from menu_screens.create_char import Character
-
 
 
 # Initialize Pygame
@@ -15,31 +13,19 @@ config_service = ConfigService()
 config = config_service.get_config()
 
 
-class PlayScreen:
+class Level1Screen:
     def __init__(self):
-        self.new_char = Character()  # Create an instance of the Character class
-        self.sound = pygame.mixer.Sound("sounds/Celtic_01_main_menu.mp3")
         self.SCREEN = pygame.display.set_mode(
             (config['screen_width'], config['screen_height']))
-        pygame.display.set_caption("Play Screen")
-        self.BG = pygame.image.load(config['background'])
+        pygame.display.set_caption("Level 1")
+        self.BG = pygame.image.load(config['level_1'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
     def get_font(self, size):
         return pygame.font.Font("fonts/MedievalMystery.ttf", size)
 
     def play(self):
-        PLAY_GAME = Button(pos=(config['screen_width'] // 2, 250),
-                           text_input="New Game", font=self.get_font(75),
-                           base_color=config['font_colour'],
-                           hovering_color=config['hovering_font_colour'])
-
-        PLAY_LOAD = Button(pos=(config['screen_width'] // 2, 400),
-                           text_input="Load", font=self.get_font(75),
-                           base_color=config['font_colour'],
-                           hovering_color=config['hovering_font_colour'])
-
-        PLAY_BACK = Button(pos=(config['screen_width'] // 2, 550),
+        PLAY_BACK = Button(pos=(config['screen_width'] // 2, config['screen_height'] - 100),
                            text_input="BACK", font=self.get_font(75),
                            base_color=config['font_colour'],
                            hovering_color=config['hovering_font_colour'])
@@ -47,12 +33,6 @@ class PlayScreen:
         while True:
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
             self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
-
-            PLAY_GAME.changeColor(PLAY_MOUSE_POS)
-            PLAY_GAME.update(self.SCREEN)
-
-            PLAY_LOAD.changeColor(PLAY_MOUSE_POS)
-            PLAY_LOAD.update(self.SCREEN)
 
             PLAY_BACK.changeColor(PLAY_MOUSE_POS)
             PLAY_BACK.update(self.SCREEN)
@@ -62,10 +42,8 @@ class PlayScreen:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if PLAY_GAME.checkForInput(PLAY_MOUSE_POS):
-                        self.new_char.create()
-                if event.type == pygame.MOUSEBUTTONDOWN:
                     if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
                         return  # Return to the main menu
 
             pygame.display.update()
+
