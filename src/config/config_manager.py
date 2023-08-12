@@ -5,7 +5,10 @@ class ConfigService:
             'screen_width': 1280,
             'screen_height': 700,
             'font_colour': 'black',
-            'hovering_font_colour': '#b68f40'
+            'hovering_font_colour': '#b68f40',
+            'background': 'images/main_background.png',
+            'menu_music': 'sounds/Celtic_01_main_menu.mp3'
+
             # Add more configuration keys and values as needed
         }
 

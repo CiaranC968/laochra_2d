@@ -14,10 +14,10 @@ class MainMenu:
         self.config = config
         self.play_screen = PlayScreen()
         self.settings = OptionsScreen()
-        self.sound = pygame.mixer.Sound("sounds/Celtic_01_main_menu.mp3")
+        self.sound = pygame.mixer.Sound(config['menu_music'])
         self.SCREEN = pygame.display.set_mode((config['screen_width'], config['screen_height']))
         self.FONT = pygame.font.Font("fonts/MedievalMystery.ttf", 100)
-        self.BG = pygame.image.load("images/main_background.jpg")
+        self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
         self.play_button = Button(

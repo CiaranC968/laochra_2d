@@ -3,6 +3,9 @@ import sys
 from button import Button
 
 from config.config_manager import ConfigService
+from menu_screens.create_char import Character
+
+character = Character()
 
 # Initialize Pygame
 pygame.mixer.init()
@@ -14,11 +17,12 @@ config = config_service.get_config()
 
 class PlayScreen:
     def __init__(self):
+        self.new_char = Character()  # Create an instance of the Character class
         self.sound = pygame.mixer.Sound("sounds/Celtic_01_main_menu.mp3")
         self.SCREEN = pygame.display.set_mode(
             (config['screen_width'], config['screen_height']))
         pygame.display.set_caption("Play Screen")
-        self.BG = pygame.image.load("images/main_background.jpg")
+        self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
     def get_font(self, size):
@@ -58,8 +62,10 @@ class PlayScreen:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
+                    if PLAY_GAME.checkForInput(PLAY_MOUSE_POS):
+                        self.new_char.create()
+                if event.type == pygame.MOUSEBUTTONDOWN:
                     if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
                         return  # Return to the main menu
 
             pygame.display.update()
-
