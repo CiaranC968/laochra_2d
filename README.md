@@ -1,2 +1,2 @@
 # laochra_2d
-laochra adventure game
+laochra 2d adventure game
