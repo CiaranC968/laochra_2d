@@ -32,8 +32,8 @@ class OptionsScreen:
             OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
             self.SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
 
-            OPTIONS_BACK = Button(image=None, pos=(640, 460),
-                                text_input="BACK", font=self.get_font(75), base_color="Black", hovering_color="Green")
+            OPTIONS_BACK = Button(pos=(640, 460),
+                                text_input="BACK", font=self.get_font(75), base_color=config.get_config()['font_colour'], hovering_color=config.get_config()['hovering_font_colour'])
 
             OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
             OPTIONS_BACK.update(self.SCREEN)

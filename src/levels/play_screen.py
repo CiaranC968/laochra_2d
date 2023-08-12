@@ -24,14 +24,14 @@ class PlayScreen:
         while True:
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
-            self.SCREEN.fill("black")
+            self.SCREEN.fill("white")
 
             PLAY_TEXT = self.get_font(45).render("This is the PLAY screen.", True, "White")
             PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
             self.SCREEN.blit(PLAY_TEXT, PLAY_RECT)
 
-            PLAY_BACK = Button(image=None, pos=(640, 460),
-                               text_input="BACK", font=self.get_font(75), base_color="White", hovering_color="Green")
+            PLAY_BACK = Button(pos=(640, 460),
+                               text_input="BACK", font=self.get_font(75), base_color=config.get_config()['font_colour'], hovering_color=config.get_config()['hovering_font_colour'])
 
             PLAY_BACK.changeColor(PLAY_MOUSE_POS)
             PLAY_BACK.update(self.SCREEN)
