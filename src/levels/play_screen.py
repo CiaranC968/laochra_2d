@@ -25,9 +25,9 @@ class PlayScreen:
 
     def play(self):
         PLAY_GAME = Button(pos=(config.get_config()['screen_width'] // 2, 250),
-                                text_input="New Game", font=self.get_font(75),
-                                base_color=config.get_config()['font_colour'],
-                                hovering_color=config.get_config()['hovering_font_colour'])
+                           text_input="New Game", font=self.get_font(75),
+                           base_color=config.get_config()['font_colour'],
+                           hovering_color=config.get_config()['hovering_font_colour'])
 
         PLAY_LOAD = Button(pos=(config.get_config()['screen_width'] // 2, 400),
                            text_input="Load", font=self.get_font(75),
@@ -41,8 +41,7 @@ class PlayScreen:
 
         while True:
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            self.SCREEN.blit(self.BG, (0, 0))
-            self.SCREEN.fill((255, 255, 255))  # Use RGB tuple for white colo
+            self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
 
             PLAY_GAME.changeColor(PLAY_MOUSE_POS)
             PLAY_GAME.update(self.SCREEN)
@@ -62,3 +61,4 @@ class PlayScreen:
                         return  # Return to the main menu
 
             pygame.display.update()
+

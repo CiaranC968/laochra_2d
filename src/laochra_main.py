@@ -52,10 +52,10 @@ class MainMenu:
             self.menu_mouse_pos = pygame.mouse.get_pos()
             self.SCREEN.blit(self.BG, (0, 0))
 
-            main_menu_text = self.FONT.render("MAIN MENU", True, "#b68f40")
+            main_menu_text = self.FONT.render("LAOCHRA", True, "#b68f40")
             text_width, text_height = main_menu_text.get_size()
 
-            text_x = (self.config['screen_width'] - text_width) // 2 + 5
+            text_x = (self.config['screen_width'] - text_width) // 2 + 10
             text_y = self.config['screen_height'] // 2 - text_height - 180 # Adjust the value as needed
 
             self.SCREEN.blit(main_menu_text, (text_x, text_y))
