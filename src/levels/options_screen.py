@@ -1,20 +1,22 @@
-import pygame
 import sys
-from button import Button
-import pygame.mixer
-import json
 
+import pygame
+import pygame.mixer
+
+from button import Button
+from options.config_manager import ConfigService
+
+config = ConfigService()
 # Initialize Pygame
 pygame.mixer.init()
 pygame.init()
 
+
 class OptionsScreen:
     def __init__(self):
-        with open('config.json') as json_file:
-            self.data = json.load(json_file)
 
         self.sound = pygame.mixer.Sound("sounds/Celtic_01_main_menu.mp3")
-        self.SCREEN = pygame.display.set_mode((self.data['screen_width'], self.data['screen_height']))
+        self.SCREEN = pygame.display.set_mode((config.get_config()['screen_width'], config.get_config()['screen_height']))
         pygame.display.set_caption("Options Screen")
 
     def get_font(self, size):

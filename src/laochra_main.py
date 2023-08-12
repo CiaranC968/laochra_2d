@@ -2,10 +2,16 @@ import pygame
 import sys
 from button import Button
 import pygame.mixer
-import json
-from levels.play_screen import PlayScreen
-from options.options_screen import OptionsScreen
 import os
+from levels.play_screen import PlayScreen
+from options.config_manager import ConfigService
+from levels.options_screen import OptionsScreen
+
+config = ConfigService()
+
+play_screen = PlayScreen()
+settings = OptionsScreen()
+
 
 # Initialize Pygame
 pygame.mixer.init()
@@ -14,12 +20,8 @@ pygame.init()
 # Get the absolute path to the directory of this script
 script_directory = os.path.dirname(os.path.abspath(__file__))
 
-config_path = os.path.join(script_directory, 'options/config.json')
-with open(config_path) as json_file:
-    data = json.load(json_file)
-
 sound = pygame.mixer.Sound("sounds/Celtic_01_main_menu.mp3")
-SCREEN = pygame.display.set_mode((data['screen_width'], data['screen_height']))
+SCREEN = pygame.display.set_mode((config.get_config()['screen_width'], config.get_config()['screen_height']))
 pygame.display.set_caption("Menu")
 
 
@@ -29,19 +31,19 @@ def get_font(size):
 
 # Load the background image
 BG = pygame.image.load("images/main_background.jpg")
-BG = pygame.transform.scale(BG, (data['screen_width'], data['screen_height']))  # Scale image to fit screen
+BG = pygame.transform.scale(BG, (config.get_config()['screen_width'], config.get_config()['screen_height']))  # Scale image to fit screen
 
 
 def main_menu():
     while True:
         MENU_TEXT = get_font(100).render("MAIN MENU", True, "#b68f40")
-        MENU_RECT = MENU_TEXT.get_rect(center=(data['screen_width'] // 2, 100))
+        MENU_RECT = MENU_TEXT.get_rect(center=(config.get_config()['screen_width'] // 2, 100))
 
-        PLAY_BUTTON = Button(image=pygame.image.load("images/Play_Rect.png"), pos=(data['screen_width'] // 2, 250),
+        PLAY_BUTTON = Button(image=pygame.image.load("images/Play_Rect.png"), pos=(config.get_config()['screen_width'] // 2, 250),
                              text_input="PLAY", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("images/Play_Rect.png"), pos=(data['screen_width'] // 2, 400),
+        OPTIONS_BUTTON = Button(image=pygame.image.load("images/Play_Rect.png"), pos=(config.get_config()['screen_width'] // 2, 400),
                                 text_input="OPTIONS", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load("images/Play_Rect.png"), pos=(data['screen_width'] // 2, 550),
+        QUIT_BUTTON = Button(image=pygame.image.load("images/Play_Rect.png"), pos=(config.get_config()['screen_width'] // 2, 550),
                              text_input="QUIT", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
 
         for event in pygame.event.get():
@@ -50,9 +52,9 @@ def main_menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    PlayScreen.play
+                    play_screen.play()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    OptionsScreen.options
+                    settings.options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()

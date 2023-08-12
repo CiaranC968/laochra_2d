@@ -2,8 +2,10 @@ import pygame
 import sys
 from button import Button
 import pygame.mixer
-import json
-import os
+
+from options.config_manager import ConfigService
+
+config = ConfigService()
 
 # Initialize Pygame
 pygame.mixer.init()
@@ -11,16 +13,8 @@ pygame.init()
 
 class PlayScreen:
     def __init__(self):
-        # Get the absolute path to the directory of this script
-        script_directory = os.path.dirname(os.path.abspath(__file__))
-        config_path = os.path.join(script_directory, 'options', 'config.json')
-
-        with open(config_path) as json_file:
-            self.data = json.load(json_file)
-
-
         self.sound = pygame.mixer.Sound("sounds/Celtic_01_main_menu.mp3")
-        self.SCREEN = pygame.display.set_mode((self.data['screen_width'], self.data['screen_height']))
+        self.SCREEN = pygame.display.set_mode((config.get_config()['screen_width'], config.get_config()['screen_height']))
         pygame.display.set_caption("Play Screen")
 
     def get_font(self, size):
