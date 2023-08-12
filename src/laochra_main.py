@@ -4,7 +4,7 @@ from button import Button
 import pygame.mixer
 import os
 from levels.play_screen import PlayScreen
-from options.config_manager import ConfigService
+from config.config_manager import ConfigService
 from levels.options_screen import OptionsScreen
 
 config = ConfigService()

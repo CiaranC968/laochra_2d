@@ -3,7 +3,7 @@ import sys
 from button import Button
 import pygame.mixer
 
-from options.config_manager import ConfigService
+from config.config_manager import ConfigService
 
 config = ConfigService()
 

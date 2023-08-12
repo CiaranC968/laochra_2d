@@ -4,7 +4,7 @@ import pygame
 import pygame.mixer
 
 from button import Button
-from options.config_manager import ConfigService
+from config.config_manager import ConfigService
 
 config = ConfigService()
 # Initialize Pygame
