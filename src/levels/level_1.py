@@ -15,6 +15,7 @@ config = config_service.get_config()
 
 class Level1Screen:
     def __init__(self):
+        self.sound = pygame.mixer.Sound(config['level_1_music'])
         self.SCREEN = pygame.display.set_mode(
             (config['screen_width'], config['screen_height']))
         self.BG = pygame.image.load(config['level_1'])
@@ -45,4 +46,9 @@ class Level1Screen:
                         return  # Return to the main menu
 
             pygame.display.update()
+            pygame.mixer.music.stop()
+            pygame.mixer.music.unload()
+            pygame.mixer.Sound.play(self.sound)
+            self.sound.set_volume(config['volume'])
+
 

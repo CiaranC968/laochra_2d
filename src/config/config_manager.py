@@ -8,7 +8,10 @@ class ConfigService:
             'hovering_font_colour': '#b68f40',
             'background': 'images/main_background.png',
             'menu_music': 'sounds/Celtic_01_main_menu.mp3',
-            'level_1': 'images/level_1.png'
+            'level_1': 'images/level_1.png',
+            'menu_font': 'fonts/MedievalMystery.ttf',
+            'level_1_music': 'sounds/Celtic_02_level_1.mp3',
+            'volume': .8
 
             # Add more configuration keys and values as needed
         }

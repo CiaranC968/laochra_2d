@@ -6,7 +6,6 @@ from levels.level_1 import Level1Screen
 
 config_service = ConfigService()
 config = config_service.get_config()
-pygame.init()
 
 
 class Character:
@@ -20,7 +19,7 @@ class Character:
 
 
     def get_font(self, size):
-        return pygame.font.Font("fonts/MedievalMystery.ttf", size)
+        return pygame.font.Font(config['menu_font'], size)
 
     def create(self):
         while True:

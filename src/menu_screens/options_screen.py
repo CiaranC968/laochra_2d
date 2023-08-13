@@ -5,7 +5,6 @@ from config.config_manager import ConfigService
 
 config_service = ConfigService()
 config = config_service.get_config()
-pygame.init()
 
 
 class OptionsScreen:
@@ -21,7 +20,7 @@ class OptionsScreen:
         print(difficulty)
 
     def get_font(self, size):
-        return pygame.font.Font("fonts/MedievalMystery.ttf", size)
+        return pygame.font.Font(config['menu_font'], size)
 
     def options(self):
         while True:

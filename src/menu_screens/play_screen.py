@@ -5,12 +5,6 @@ from button import Button
 from config.config_manager import ConfigService
 from menu_screens.create_char import Character
 
-
-
-# Initialize Pygame
-pygame.mixer.init()
-pygame.init()
-
 config_service = ConfigService()
 config = config_service.get_config()
 
@@ -18,14 +12,13 @@ config = config_service.get_config()
 class PlayScreen:
     def __init__(self):
         self.new_char = Character()  # Create an instance of the Character class
-        self.sound = pygame.mixer.Sound("sounds/Celtic_01_main_menu.mp3")
         self.SCREEN = pygame.display.set_mode(
             (config['screen_width'], config['screen_height']))
         self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
     def get_font(self, size):
-        return pygame.font.Font("fonts/MedievalMystery.ttf", size)
+        return pygame.font.Font(config['menu_font'], size)
 
     def play(self):
         PLAY_GAME = Button(pos=(config['screen_width'] // 2, 250),

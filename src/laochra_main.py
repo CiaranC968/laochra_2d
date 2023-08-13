@@ -14,7 +14,7 @@ class MainMenu:
         self.settings = OptionsScreen()
         self.sound = pygame.mixer.Sound(config['menu_music'])
         self.SCREEN = pygame.display.set_mode((config['screen_width'], config['screen_height']))
-        self.FONT = pygame.font.Font("fonts/MedievalMystery.ttf", 100)
+        self.FONT = pygame.font.Font(config['menu_font'], 100)
         self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
@@ -64,8 +64,7 @@ class MainMenu:
 
             pygame.display.update()
             pygame.mixer.Sound.play(self.sound)
-            self.sound.set_volume(.8)
-
+            self.sound.set_volume(self.config['volume'])
             self.handle_events()
 
 
