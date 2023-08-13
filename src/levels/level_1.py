@@ -1,6 +1,5 @@
 import pygame
 import sys
-from menu_objects.text_button import Button
 
 from config.config_manager import ConfigService
 
@@ -25,26 +24,24 @@ class Level1Screen:
         return pygame.font.Font("fonts/MedievalMystery.ttf", size)
 
     def play(self):
-        PLAY_BACK = config_service.create_text_button((config['screen_width'] // 2, 550), "BACK", config['font_size'], None)
+
+        play_back = config_service.create_text_button((config['screen_width'] // 2, 550), "BACK", config['font_size'])
 
         while True:
-            PLAY_MOUSE_POS = pygame.mouse.get_pos()
+            play_mouse_pos = pygame.mouse.get_pos()
             self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
 
-            PLAY_BACK.changeColor(PLAY_MOUSE_POS)
-            PLAY_BACK.update(self.SCREEN)
+            play_back.changeColor(play_mouse_pos)
+            play_back.update(self.SCREEN)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    if play_back.checkForInput(play_mouse_pos):
                         pygame.mixer.stop()
                         return  # Return to the main menu
 
             pygame.display.update()
             pygame.mixer.Sound.play(self.sound)
-
-
-

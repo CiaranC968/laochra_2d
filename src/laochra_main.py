@@ -64,7 +64,6 @@ def main():
     pygame.mixer.init()
     pygame.init()
     pygame.display.set_caption("Laochra")
-    config_service = ConfigService()
     config = config_service.get_config()
 
     main_menu = MainMenu(config)
