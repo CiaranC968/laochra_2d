@@ -1,6 +1,6 @@
 class ConfigService:
     def __init__(self):
-        # Initialize with default configuration values
+        # Configuration values
         self.config = {
             'screen_width': 1280,
             'screen_height': 700,
@@ -11,7 +11,8 @@ class ConfigService:
             'level_1': 'images/level_1.png',
             'menu_font': 'fonts/MedievalMystery.ttf',
             'level_1_music': 'sounds/Celtic_02_level_1.mp3',
-            'volume': .8
+            'volume': .8,
+            'fps': 60
 
             # Add more configuration keys and values as needed.
         }

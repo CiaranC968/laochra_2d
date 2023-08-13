@@ -50,7 +50,9 @@ class Character:
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if LEVEL_1.checkForInput(OPTIONS_MOUSE_POS):
+                        pygame.mixer.stop()
                         self.level1_screen.play()
+
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
                         return  # Return to the main menu

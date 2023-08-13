@@ -8,6 +8,7 @@ from config.config_manager import ConfigService
 
 class MainMenu:
     def __init__(self, config):
+        self.clock = pygame.time.Clock()
         self.menu_mouse_pos = None
         self.config = config
         self.play_screen = PlayScreen()
@@ -63,6 +64,7 @@ class MainMenu:
                 button.update(self.SCREEN)
 
             pygame.display.update()
+            self.clock.tick(self.config['fps'])
             pygame.mixer.Sound.play(self.sound)
             self.sound.set_volume(self.config['volume'])
             self.handle_events()

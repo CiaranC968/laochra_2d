@@ -46,8 +46,6 @@ class Level1Screen:
                         return  # Return to the main menu
 
             pygame.display.update()
-            pygame.mixer.music.stop()
-            pygame.mixer.music.unload()
             pygame.mixer.Sound.play(self.sound)
             self.sound.set_volume(config['volume'])
 
