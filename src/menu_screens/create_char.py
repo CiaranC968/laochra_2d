@@ -1,6 +1,5 @@
 import sys
 import pygame
-from button import Button
 from config.config_manager import ConfigService
 from levels.level_1 import Level1Screen
 
@@ -17,7 +16,6 @@ class Character:
         self.BG = pygame.transform.scale(self.BG,
                                          (config['screen_width'], config['screen_height']))
 
-
     def get_font(self, size):
         return pygame.font.Font(config['menu_font'], size)
 
@@ -27,16 +25,8 @@ class Character:
 
             self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
 
-
-            LEVEL_1 = Button(pos=(640, 300),
-                                  text_input="Level One", font=self.get_font(75),
-                                  base_color=config['font_colour'],
-                                  hovering_color=config['hovering_font_colour'])
-
-            OPTIONS_BACK = Button(pos=(640, 460),
-                                  text_input="BACK", font=self.get_font(75),
-                                  base_color=config['font_colour'],
-                                  hovering_color=config['hovering_font_colour'])
+            LEVEL_1 = config_service.create_button((config['screen_width'] // 2, 250), "Level One", 75)
+            OPTIONS_BACK = config_service.create_button((config['screen_width'] // 2, 550), "Back", 75)
 
             LEVEL_1.changeColor(OPTIONS_MOUSE_POS)
             LEVEL_1.update(self.SCREEN)

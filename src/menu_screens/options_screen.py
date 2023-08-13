@@ -1,6 +1,5 @@
 import sys
 import pygame
-from button import Button
 from config.config_manager import ConfigService
 
 config_service = ConfigService()
@@ -28,32 +27,24 @@ class OptionsScreen:
 
             self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
 
+            fullscreen = config_service.create_button((config['screen_width'] // 2, 250), "Toggle Fullscreen", 75)
+            options_back = config_service.create_button((config['screen_width'] // 2, 550), "Back", 75)
 
-            FULLSCREEN = Button(pos=(640, 300),
-                                  text_input="FULl SCREEN", font=self.get_font(75),
-                                  base_color=config['font_colour'],
-                                  hovering_color=config['hovering_font_colour'])
+            fullscreen.changeColor(OPTIONS_MOUSE_POS)
+            fullscreen.update(self.SCREEN)
 
-            OPTIONS_BACK = Button(pos=(640, 460),
-                                  text_input="BACK", font=self.get_font(75),
-                                  base_color=config['font_colour'],
-                                  hovering_color=config['hovering_font_colour'])
-
-            FULLSCREEN.changeColor(OPTIONS_MOUSE_POS)
-            FULLSCREEN.update(self.SCREEN)
-
-            OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
-            OPTIONS_BACK.update(self.SCREEN)
+            options_back.changeColor(OPTIONS_MOUSE_POS)
+            options_back.update(self.SCREEN)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if FULLSCREEN.checkForInput(OPTIONS_MOUSE_POS):
+                    if fullscreen.checkForInput(OPTIONS_MOUSE_POS):
                         pygame.display.toggle_fullscreen()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
+                    if options_back.checkForInput(OPTIONS_MOUSE_POS):
                         return  # Return to the main menu
 
             pygame.display.update()

@@ -2,7 +2,7 @@ import pygame
 import sys
 from button import Button
 from menu_screens.play_screen import PlayScreen
-from menu_screens.options_screen import OptionsScreen
+from menu_screens.options_screen import OptionsScreen, config_service
 from config.config_manager import ConfigService
 
 
@@ -19,18 +19,9 @@ class MainMenu:
         self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
-        self.play_button = Button(
-            pos=(config['screen_width'] // 2, 250),
-            text_input="PLAY", font=self.FONT, base_color=config['font_colour'],
-            hovering_color=config['hovering_font_colour'])
-        self.options_button = Button(
-            pos=(config['screen_width'] // 2, 400),
-            text_input="OPTIONS", font=self.FONT, base_color=config['font_colour'],
-            hovering_color=config['hovering_font_colour'])
-        self.quit_button = Button(
-            pos=(config['screen_width'] // 2, 550),
-            text_input="QUIT", font=self.FONT, base_color=config['font_colour'],
-            hovering_color=config['hovering_font_colour'])
+        self.play_button = config_service.create_button((config['screen_width'] // 2, 250), "Play", 75)
+        self.options_button = config_service.create_button((config['screen_width'] // 2, 400), "Options", 75)
+        self.quit_button = config_service.create_button((config['screen_width'] // 2, 550), "Quit", 75)
 
     def handle_events(self):
         for event in pygame.event.get():

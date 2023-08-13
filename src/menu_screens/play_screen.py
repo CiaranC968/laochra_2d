@@ -1,6 +1,5 @@
 import pygame
 import sys
-from button import Button
 
 from config.config_manager import ConfigService
 from menu_screens.create_char import Character
@@ -11,6 +10,7 @@ config = config_service.get_config()
 
 class PlayScreen:
     def __init__(self):
+        self.config = config
         self.new_char = Character()  # Create an instance of the Character class
         self.SCREEN = pygame.display.set_mode(
             (config['screen_width'], config['screen_height']))
@@ -21,20 +21,9 @@ class PlayScreen:
         return pygame.font.Font(config['menu_font'], size)
 
     def play(self):
-        PLAY_GAME = Button(pos=(config['screen_width'] // 2, 250),
-                           text_input="New Game", font=self.get_font(75),
-                           base_color=config['font_colour'],
-                           hovering_color=config['hovering_font_colour'])
-
-        PLAY_LOAD = Button(pos=(config['screen_width'] // 2, 400),
-                           text_input="Load", font=self.get_font(75),
-                           base_color=config['font_colour'],
-                           hovering_color=config['hovering_font_colour'])
-
-        PLAY_BACK = Button(pos=(config['screen_width'] // 2, 550),
-                           text_input="BACK", font=self.get_font(75),
-                           base_color=config['font_colour'],
-                           hovering_color=config['hovering_font_colour'])
+        PLAY_GAME = config_service.create_button((config['screen_width'] // 2, 250),  "New Game", 75)
+        PLAY_LOAD = config_service.create_button((config['screen_width'] // 2, 400), "Load Game", 75)
+        PLAY_BACK = config_service.create_button((config['screen_width'] // 2, 550), "BACK", 75)
 
         while True:
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
