@@ -21,7 +21,6 @@ class PlayScreen:
         self.sound = pygame.mixer.Sound("sounds/Celtic_01_main_menu.mp3")
         self.SCREEN = pygame.display.set_mode(
             (config['screen_width'], config['screen_height']))
-        pygame.display.set_caption("Play Screen")
         self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 

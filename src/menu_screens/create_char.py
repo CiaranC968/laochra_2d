@@ -14,7 +14,6 @@ class Character:
         self.level1_screen = Level1Screen()
         self.SCREEN = pygame.display.set_mode(
             (config['screen_width'], config['screen_height']))
-        pygame.display.set_caption("Options Screen")
         self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG,
                                          (config['screen_width'], config['screen_height']))
