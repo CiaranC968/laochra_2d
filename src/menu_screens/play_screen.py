@@ -1,6 +1,6 @@
 import pygame
 import sys
-
+from menu_screens.load_screen import LoadScreen
 from config.config_manager import ConfigService
 from menu_screens.create_char import Character
 
@@ -10,6 +10,7 @@ config = config_service.get_config()
 
 class PlayScreen:
     def __init__(self):
+        self.load = LoadScreen()
         self.config = config
         self.new_char = Character()  # Create an instance of the Character class
         self.SCREEN = pygame.display.set_mode(
@@ -45,6 +46,9 @@ class PlayScreen:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if PLAY_GAME.checkForInput(PLAY_MOUSE_POS):
                         self.new_char.create()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if PLAY_LOAD.checkForInput(PLAY_MOUSE_POS):
+                        self.load.load_game()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
                         return  # Return to the main menu

@@ -1,6 +1,5 @@
 import pygame
 import sys
-from button import Button
 from menu_screens.play_screen import PlayScreen
 from menu_screens.options_screen import OptionsScreen, config_service
 from config.config_manager import ConfigService

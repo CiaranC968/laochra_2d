@@ -14,10 +14,6 @@ class OptionsScreen:
         self.BG = pygame.transform.scale(self.BG,
                                          (config['screen_width'], config['screen_height']))
 
-    def set_difficulty(value, difficulty):
-        print(value)
-        print(difficulty)
-
     def get_font(self, size):
         return pygame.font.Font(config['menu_font'], size)
 
