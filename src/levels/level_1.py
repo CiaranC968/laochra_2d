@@ -29,7 +29,7 @@ class Level1Screen:
 
         # Background scrolling variables
         bg_scroll = 0
-        bg_speed = 1  # Adjust this value to control scrolling speed
+        bg_speed = 5  # Adjust this value to control scrolling speed
         bg_width = self.BG.get_width()
 
         while True:
@@ -38,24 +38,12 @@ class Level1Screen:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_RIGHT]:
                 self.player.move_right()
-                moving_right = True
-                moving_left = False
+                bg_scroll += bg_speed
             elif keys[pygame.K_LEFT]:
                 self.player.move_left()
-                moving_left = True
-                moving_right = False
+                bg_scroll -= bg_speed
             else:
                 self.player.stop()
-                moving_left = False
-                moving_right = False
-
-            # Calculate the background scroll based on character's movement
-            if moving_right:
-                self.bg_x -= self.player.speed
-                bg_scroll += bg_speed
-            elif moving_left:
-                self.bg_x += self.player.speed
-                bg_scroll -= bg_speed
 
             # Blit the scrolling background
             for i in range(0, int(config['screen_width'] / bg_width) + 15):
