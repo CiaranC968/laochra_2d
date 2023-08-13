@@ -23,8 +23,8 @@ class OptionsScreen:
 
             self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
 
-            fullscreen = config_service.create_button((config['screen_width'] // 2, 250), "Toggle Fullscreen", 75)
-            options_back = config_service.create_button((config['screen_width'] // 2, 550), "Back", 75)
+            fullscreen = config_service.create_button((config['screen_width'] // 2, 250), "Toggle Fullscreen", 75, "none",)
+            options_back = config_service.create_button((config['screen_width'] // 2, 550), "Back", 75, "none",)
 
             fullscreen.changeColor(OPTIONS_MOUSE_POS)
             fullscreen.update(self.SCREEN)

@@ -25,8 +25,8 @@ class Character:
 
             self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
 
-            LEVEL_1 = config_service.create_button((config['screen_width'] // 2, 250), "Level One", 75)
-            OPTIONS_BACK = config_service.create_button((config['screen_width'] // 2, 550), "Back", 75)
+            LEVEL_1 = config_service.create_button((config['screen_width'] // 2, 250), "Level One", 75, "none",)
+            OPTIONS_BACK = config_service.create_button((config['screen_width'] // 2, 550), "Back", 75, "none",)
 
             LEVEL_1.changeColor(OPTIONS_MOUSE_POS)
             LEVEL_1.update(self.SCREEN)

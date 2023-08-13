@@ -1,6 +1,6 @@
 import pygame
 
-from button import Button
+from menu_objects.text_button import Button
 
 
 class ConfigService:
@@ -17,13 +17,15 @@ class ConfigService:
             'menu_font': 'fonts/MedievalMystery.ttf',
             'level_1_music': 'sounds/Celtic_02_level_1.mp3',
             'volume': .8,
+            'font_size': 75,
             'fps': 60
 
             # Add more configuration keys and values as needed.
         }
 
-    def create_button(self, pos, text, font_size):
-        return Button(pos=pos,
+    def create_button(self, pos, text, font_size, image):
+        return Button(image=image,
+                      pos=pos,
                       text_input=text, font=self.get_font(font_size),
                       base_color=self.config['font_colour'],
                       hovering_color=self.config['hovering_font_colour'])

@@ -1,6 +1,6 @@
 import pygame
 import sys
-from button import Button
+from menu_objects.text_button import Button
 
 from config.config_manager import ConfigService
 
