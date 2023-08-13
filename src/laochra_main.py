@@ -2,8 +2,6 @@ import pygame
 import sys
 from menu_screens.play_screen import PlayScreen
 from menu_screens.options_screen import OptionsScreen, config_service
-from config.config_manager import ConfigService
-
 
 class MainMenu:
     def __init__(self, config):
@@ -58,7 +56,6 @@ class MainMenu:
             pygame.mixer.Sound.play(self.sound)
             self.sound.set_volume(self.config['volume'])
             self.handle_events()
-
 
 def main():
     pygame.mixer.init()

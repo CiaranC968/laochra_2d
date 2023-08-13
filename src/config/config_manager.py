@@ -18,7 +18,9 @@ class ConfigService:
             'level_1_music': 'sounds/Celtic_02_level_1.mp3',
             'volume': .8,
             'font_size': 75,
-            'fps': 60
+            'fps': 60,
+            'player_width': 200,
+            'player_height': 200
 
             # Add more configuration keys and values as needed.
         }
