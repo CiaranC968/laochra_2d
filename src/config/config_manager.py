@@ -31,7 +31,7 @@ class ConfigService:
                       hovering_color=self.config['hovering_font_colour'])
 
     def create_image_button(self, pos, text, font_size, image_path):
-        image = pygame.image.load(image_path)  # Assuming you're using pygame for graphics
+        image = pygame.image.load(image_path)
         return Button(image=image,
                       pos=pos,
                       text_input=text, font=self.get_font(font_size),
