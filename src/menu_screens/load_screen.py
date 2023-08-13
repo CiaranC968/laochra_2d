@@ -23,8 +23,8 @@ class LoadScreen:
 
             self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
 
-            fullscreen = config_service.create_button((config['screen_width'] // 2, 250), "Load Game", config['font_size'], None)
-            options_back = config_service.create_button((config['screen_width'] // 2, 550), "Back", config['font_size'], None)
+            fullscreen = config_service.create_text_button((config['screen_width'] // 2, 250), "Load Game", config['font_size'])
+            options_back = config_service.create_text_button((config['screen_width'] // 2, 550), "Back", config['font_size'])
 
             fullscreen.changeColor(OPTIONS_MOUSE_POS)
             fullscreen.update(self.SCREEN)
