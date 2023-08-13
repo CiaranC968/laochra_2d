@@ -17,7 +17,6 @@ class Level1Screen:
     def __init__(self):
         self.SCREEN = pygame.display.set_mode(
             (config['screen_width'], config['screen_height']))
-        pygame.display.set_caption("Level 1")
         self.BG = pygame.image.load(config['level_1'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 

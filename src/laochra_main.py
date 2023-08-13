@@ -14,7 +14,6 @@ class MainMenu:
         self.settings = OptionsScreen()
         self.sound = pygame.mixer.Sound(config['menu_music'])
         self.SCREEN = pygame.display.set_mode((config['screen_width'], config['screen_height']))
-        pygame.display.set_caption("Laochra")
         self.FONT = pygame.font.Font("fonts/MedievalMystery.ttf", 100)
         self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
@@ -73,11 +72,9 @@ class MainMenu:
 def main():
     pygame.mixer.init()
     pygame.init()
-
+    pygame.display.set_caption("Laochra")
     config_service = ConfigService()
     config = config_service.get_config()
-
-    pygame.display.set_caption("Menu")
 
     main_menu = MainMenu(config)
     main_menu.run()
