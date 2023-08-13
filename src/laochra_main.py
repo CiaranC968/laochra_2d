@@ -2,7 +2,7 @@ import pygame
 import sys
 from menu_screens.play_screen import PlayScreen
 from menu_screens.options_screen import OptionsScreen, config_service
-
+import math
 class MainMenu:
     def __init__(self, config):
         self.clock = pygame.time.Clock()
@@ -38,6 +38,9 @@ class MainMenu:
         while True:
             self.menu_mouse_pos = pygame.mouse.get_pos()
             self.SCREEN.blit(self.BG, (0, 0))
+            bg_width = self.BG.get_width()
+
+            tiles = math.ceil(self.config['screen_width'] / bg_width)
 
             main_menu_text = self.FONT.render("LAOCHRA", True, "#b68f40")
             text_width, text_height = main_menu_text.get_size()
@@ -52,7 +55,7 @@ class MainMenu:
                 button.update(self.SCREEN)
 
             pygame.display.update()
-            self.clock.tick(self.config['fps'])
+            self.clock.tick(self.config['frame_rate'])
             pygame.mixer.Sound.play(self.sound)
             self.sound.set_volume(self.config['volume'])
             self.handle_events()

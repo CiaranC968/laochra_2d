@@ -7,7 +7,7 @@ config = config_service.get_config()
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
-        self.animation_speed = 40  # Adjust this value for animation speed
+        self.animation_speed = 10  # Adjust this value for animation speed
         self.animation_counter = 0
         self.animation_frames = {
             'ready': [],  # List to store idle animation frames
