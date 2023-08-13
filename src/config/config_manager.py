@@ -13,7 +13,7 @@ class ConfigService:
             'level_1_music': 'sounds/Celtic_02_level_1.mp3',
             'volume': .8
 
-            # Add more configuration keys and values as needed
+            # Add more configuration keys and values as needed.
         }
 
     def get_config(self):
