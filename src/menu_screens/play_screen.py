@@ -22,9 +22,9 @@ class PlayScreen:
         return pygame.font.Font(config['menu_font'], size)
 
     def play(self):
-        PLAY_GAME = config_service.create_button((config['screen_width'] // 2, 250), "New Game", 75, "none",)
-        PLAY_LOAD = config_service.create_button((config['screen_width'] // 2, 400), "Load Game", 75, "none",)
-        PLAY_BACK = config_service.create_button((config['screen_width'] // 2, 550), "BACK", 75, "none",)
+        PLAY_GAME = config_service.create_button((config['screen_width'] // 2, 250), "New Game", 75, None,)
+        PLAY_LOAD = config_service.create_button((config['screen_width'] // 2, 400), "Load Game", 75, None)
+        PLAY_BACK = config_service.create_button((config['screen_width'] // 2, 550), "BACK", 75, None,)
 
         while True:
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
