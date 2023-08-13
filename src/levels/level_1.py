@@ -37,10 +37,10 @@ class Level1Screen:
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_RIGHT]:
-                self.player.move_right()
+                self.player.move('right')
                 bg_scroll += bg_speed
             elif keys[pygame.K_LEFT]:
-                self.player.move_left()
+                self.player.move('left')
                 bg_scroll -= bg_speed
             else:
                 self.player.stop()
@@ -48,6 +48,10 @@ class Level1Screen:
             # Blit the scrolling background
             for i in range(0, int(config['screen_width'] / bg_width) + 15):
                 self.SCREEN.blit(self.BG, (i * bg_width - bg_scroll, self.bg_y))
+
+            if self.player.current_action == 'attack1' and self.player.frame_index == len(
+                    self.player.animation_frames['attack1']) - 1:
+                self.player.stop()
 
             self.player.update_animation()
             self.SCREEN.blit(self.player.image, self.player.rect)

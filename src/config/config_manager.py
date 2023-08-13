@@ -20,7 +20,8 @@ class ConfigService:
             'font_size': 75,
             'frame_rate': 60,
             'player_width': 200,
-            'player_height': 200
+            'player_height': 200,
+            'ground_level': 450
 
             # Add more configuration keys and values as needed.
         }
