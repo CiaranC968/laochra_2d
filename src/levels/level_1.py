@@ -25,7 +25,7 @@ class Level1Screen:
         return pygame.font.Font("fonts/MedievalMystery.ttf", size)
 
     def play(self):
-        PLAY_BACK = config_service.create_button((config['screen_width'] // 2, 550), "BACK", 75, None)
+        PLAY_BACK = config_service.create_button((config['screen_width'] // 2, 550), "BACK", config['font_size'], None)
 
         while True:
             PLAY_MOUSE_POS = pygame.mouse.get_pos()

@@ -18,9 +18,9 @@ class MainMenu:
         self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
-        self.play_button = config_service.create_button((config['screen_width'] // 2, 250), "Play", 75, None)
-        self.options_button = config_service.create_button((config['screen_width'] // 2, 400), "Options", 75, None)
-        self.quit_button = config_service.create_button((config['screen_width'] // 2, 550), "Quit", 75, None)
+        self.play_button = config_service.create_button((config['screen_width'] // 2, 250), "Play", config['font_size'], None)
+        self.options_button = config_service.create_button((config['screen_width'] // 2, 400), "Options", config['font_size'], None)
+        self.quit_button = config_service.create_button((config['screen_width'] // 2, 550), "Quit", config['font_size'], None)
 
     def handle_events(self):
         for event in pygame.event.get():
