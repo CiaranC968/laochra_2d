@@ -25,10 +25,7 @@ class Level1Screen:
         return pygame.font.Font("fonts/MedievalMystery.ttf", size)
 
     def play(self):
-        PLAY_BACK = Button(pos=(config['screen_width'] // 2, config['screen_height'] - 100),
-                           text_input="BACK", font=self.get_font(75),
-                           base_color=config['font_colour'],
-                           hovering_color=config['hovering_font_colour'])
+        PLAY_BACK = config_service.create_button((config['screen_width'] // 2, 550), "BACK", 75, None)
 
         while True:
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
@@ -43,10 +40,11 @@ class Level1Screen:
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                        pygame.mixer.stop()
                         return  # Return to the main menu
 
             pygame.display.update()
             pygame.mixer.Sound.play(self.sound)
-            self.sound.set_volume(config['volume'])
+
 
 

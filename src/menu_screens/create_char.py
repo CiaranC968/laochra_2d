@@ -9,6 +9,7 @@ config = config_service.get_config()
 
 class Character:
     def __init__(self):
+        self.sound = pygame.mixer.Sound(config['menu_music'])
         self.level1_screen = Level1Screen()
         self.SCREEN = pygame.display.set_mode(
             (config['screen_width'], config['screen_height']))
@@ -47,3 +48,4 @@ class Character:
                         return  # Return to the main menu
 
             pygame.display.update()
+            pygame.mixer.Sound.play(self.sound)
