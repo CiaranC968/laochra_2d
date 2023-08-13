@@ -30,7 +30,7 @@ class ConfigService:
                       base_color=self.config['font_colour'],
                       hovering_color=self.config['hovering_font_colour'])
 
-    def create_image_button(self, pos, text, font_size, image_path):
+    def create_image_bg_button(self, pos, text, font_size, image_path):
         image = pygame.image.load(image_path)
         return Button(image=image,
                       pos=pos,
