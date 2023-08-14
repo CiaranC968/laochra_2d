@@ -14,6 +14,7 @@ class ConfigService:
         images = config['Images']
         music = config['Music']
         player = config['Player']
+        controls = config['Controls']
 
         # Initialize with default configuration values
         self.config = {
@@ -32,6 +33,10 @@ class ConfigService:
             'volume': float(music['volume']),
             'player_width': int(player['player_width']),
             'player_height': int(player['player_height']),
+            'player_left': controls['player_left'],
+            'player_right': controls['player_right'],
+            'player_jump': controls['player_jump'],
+            'player_attack': controls['player_attack']
             # Add more configuration keys and values as needed.
         }
 

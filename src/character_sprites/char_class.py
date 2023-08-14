@@ -93,16 +93,17 @@ class Player(pygame.sprite.Sprite):
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_f:
+                if event.key == getattr(pygame, config['player_attack']):
                     self.attack()
-                elif event.key == pygame.K_LEFT:
+                elif event.key == getattr(pygame, config['player_left']):
                     self.move('left')
-                elif event.key == pygame.K_RIGHT:
+                elif event.key == getattr(pygame, config['player_right']):
                     self.move('right')
-                elif event.key == pygame.K_SPACE:
+                elif event.key == getattr(pygame, config['player_jump']):
                     self.jump()
             elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                if event.key == getattr(pygame, config['player_left']) or event.key == getattr(pygame,
+                                                                                               config['player_right']):
                     self.stop()
 
             if event.type == pygame.QUIT:
