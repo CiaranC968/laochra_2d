@@ -8,7 +8,6 @@ pygame.init()
 config_service = ConfigService()
 config = config_service.get_config()
 
-
 class Level1Screen:
     def __init__(self):
         self.bg_width = config['screen_width']
@@ -26,13 +25,22 @@ class Level1Screen:
     def update_display(self):
         current_time = pygame.time.get_ticks()
 
-        self.SCREEN.blit(self.BG, (self.bg_x, self.bg_y))
+        self.bg_scroll += self.bg_speed  # Scroll the background
+        if self.bg_scroll >= self.bg_width:
+            self.bg_scroll = 0
+
+        self.SCREEN.blit(self.BG, (self.bg_x - self.bg_scroll, self.bg_y))
 
         for i in range(0, int(config['screen_width'] / self.bg_width) + 15):
             self.SCREEN.blit(self.BG, (i * self.bg_width - self.bg_scroll, self.bg_y))
+
+        # Update the player's position
+        self.player.handle_events()
+        self.player.rect.clamp_ip(self.SCREEN.get_rect())  # Clamp the player's position
+
+        # Update animations and display
         self.SCREEN.blit(self.player.image, self.player.rect)
         self.player.update_animation(current_time)
-
         pygame.display.update()
 
     def play(self):
@@ -47,3 +55,4 @@ class Level1Screen:
 
             pygame.mixer.Sound.play(self.sound)
             clock.tick(config['frame_rate'])
+

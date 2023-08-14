@@ -10,7 +10,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
         self.animation_speed = 60
-        self.speed = 5  # Increased movement speed for smoother gameplay
+        self.speed = 10  # Increased movement speed for smoother gameplay
         self.jump_speed = -12
         self.gravity = 1
         self.is_jumping = False
