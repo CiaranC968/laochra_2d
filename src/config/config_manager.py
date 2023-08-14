@@ -32,5 +32,23 @@ class ConfigService:
             # Add more configuration keys and values as needed.
         }
 
+    def create_text_button(self, pos, text, font_size):
+        return Button(image=None,
+                      pos=pos,
+                      text_input=text, font=self.get_font(font_size),
+                      base_color=self.config['font_colour'],
+                      hovering_color=self.config['hovering_font_colour'])
+
+    def create_image_bg_button(self, pos, text, font_size, image_path):
+        image = pygame.image.load(image_path)
+        return Button(image=image,
+                      pos=pos,
+                      text_input=text, font=self.get_font(font_size),
+                      base_color=self.config['font_colour'],
+                      hovering_color=self.config['hovering_font_colour'])
+
+    def get_font(self, size):
+        return pygame.font.Font(self.config['menu_font'], size)
+
     def get_config(self):
         return self.config

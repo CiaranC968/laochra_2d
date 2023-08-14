@@ -1,11 +1,8 @@
 import pygame
 import sys
-from button import Button
-
 from config.config_manager import ConfigService
+from character_sprites.char_class import Player
 
-
-# Initialize Pygame
 pygame.mixer.init()
 pygame.init()
 
@@ -15,40 +12,64 @@ config = config_service.get_config()
 
 class Level1Screen:
     def __init__(self):
+        self.bg_width = config['screen_width']
+        self.bg_speed = 5
+        self.bg_scroll = 0
         self.sound = pygame.mixer.Sound(config['level_1_music'])
-        self.SCREEN = pygame.display.set_mode(
-            (config['screen_width'], config['screen_height']))
-        self.BG = pygame.image.load(config['level_1'])
+        self.SCREEN = pygame.display.set_mode((config['screen_width'], config['screen_height']))
+        self.BG = pygame.image.load(config['level_1']).convert()
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
+        self.bg_x = 0
+        self.bg_y = 0
+        self.player = Player(100, 450)
 
-    def get_font(self, size):
-        return pygame.font.Font("fonts/MedievalMystery.ttf", size)
+    def handle_input(self):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_RIGHT]:
+            self.player.move('right')
+            self.bg_scroll += self.bg_speed
+        elif keys[pygame.K_LEFT]:
+            self.player.move('left')
+            self.bg_scroll -= self.bg_speed
+        elif keys[pygame.K_f]:
+            if self.player.current_action != 'attack1':
+                self.player.attack()
+        elif keys[pygame.K_SPACE]:
+            self.player.jump()
+        else:
+            self.player.stop()
+
+    def handle_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+    def update_display(self):
+        current_time = pygame.time.get_ticks()
+
+        self.SCREEN.blit(self.BG, (self.bg_x, self.bg_y))
+
+        for i in range(0, int(config['screen_width'] / self.bg_width) + 15):
+            self.SCREEN.blit(self.BG, (i * self.bg_width - self.bg_scroll, self.bg_y))
+        self.SCREEN.blit(self.player.image, self.player.rect)
+        self.player.update_animation(current_time)
+        pygame.display.update()
+
+        self.bg_x -= self.bg_speed
+        if self.bg_x <= -self.bg_width:
+            self.bg_x = 0
+
+        pygame.display.update()
 
     def play(self):
-        PLAY_BACK = Button(pos=(config['screen_width'] // 2, config['screen_height'] - 100),
-                           text_input="BACK", font=self.get_font(75),
-                           base_color=config['font_colour'],
-                           hovering_color=config['hovering_font_colour'])
+        clock = pygame.time.Clock()
 
         while True:
-            PLAY_MOUSE_POS = pygame.mouse.get_pos()
-            self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
+            self.handle_input()
+            self.handle_events()
+            self.update_display()
 
-            PLAY_BACK.changeColor(PLAY_MOUSE_POS)
-            PLAY_BACK.update(self.SCREEN)
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
-                        return  # Return to the main menu
-
-            pygame.display.update()
-            pygame.mixer.music.stop()
-            pygame.mixer.music.unload()
             pygame.mixer.Sound.play(self.sound)
-            self.sound.set_volume(config['volume'])
-
-
+            clock.tick(config['frame_rate'])

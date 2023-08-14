@@ -6,7 +6,7 @@ config_service = ConfigService()
 config = config_service.get_config()
 
 
-class OptionsScreen:
+class LoadScreen:
     def __init__(self):
         self.SCREEN = pygame.display.set_mode(
             (config['screen_width'], config['screen_height']))
@@ -17,13 +17,13 @@ class OptionsScreen:
     def get_font(self, size):
         return pygame.font.Font(config['menu_font'], size)
 
-    def options(self):
+    def load_game(self):
         while True:
             OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
 
             self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
 
-            fullscreen = config_service.create_text_button((config['screen_width'] // 2, 250), "Toggle Fullscreen", config['font_size'])
+            fullscreen = config_service.create_text_button((config['screen_width'] // 2, 250), "Load Game", config['font_size'])
             options_back = config_service.create_text_button((config['screen_width'] // 2, 550), "Back", config['font_size'])
 
             fullscreen.changeColor(OPTIONS_MOUSE_POS)
@@ -36,9 +36,6 @@ class OptionsScreen:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if fullscreen.checkForInput(OPTIONS_MOUSE_POS):
-                        pygame.display.toggle_fullscreen()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if options_back.checkForInput(OPTIONS_MOUSE_POS):
                         return  # Return to the main menu

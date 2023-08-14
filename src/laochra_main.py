@@ -1,13 +1,11 @@
 import pygame
 import sys
-from button import Button
 from menu_screens.play_screen import PlayScreen
-from menu_screens.options_screen import OptionsScreen
-from config.config_manager import ConfigService
-
-
+from menu_screens.options_screen import OptionsScreen, config_service
+import math
 class MainMenu:
     def __init__(self, config):
+        self.clock = pygame.time.Clock()
         self.menu_mouse_pos = None
         self.config = config
         self.play_screen = PlayScreen()
@@ -18,18 +16,9 @@ class MainMenu:
         self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
-        self.play_button = Button(
-            pos=(config['screen_width'] // 2, 250),
-            text_input="PLAY", font=self.FONT, base_color=config['font_colour'],
-            hovering_color=config['hovering_font_colour'])
-        self.options_button = Button(
-            pos=(config['screen_width'] // 2, 400),
-            text_input="OPTIONS", font=self.FONT, base_color=config['font_colour'],
-            hovering_color=config['hovering_font_colour'])
-        self.quit_button = Button(
-            pos=(config['screen_width'] // 2, 550),
-            text_input="QUIT", font=self.FONT, base_color=config['font_colour'],
-            hovering_color=config['hovering_font_colour'])
+        self.play_button = config_service.create_text_button((config['screen_width'] // 2, 250), "Play", config['font_size'])
+        self.options_button = config_service.create_text_button((config['screen_width'] // 2, 400), "Options", config['font_size'])
+        self.quit_button = config_service.create_text_button((config['screen_width'] // 2, 550), "Quit", config['font_size'])
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -49,6 +38,9 @@ class MainMenu:
         while True:
             self.menu_mouse_pos = pygame.mouse.get_pos()
             self.SCREEN.blit(self.BG, (0, 0))
+            bg_width = self.BG.get_width()
+
+            tiles = math.ceil(self.config['screen_width'] / bg_width)
 
             main_menu_text = self.FONT.render("LAOCHRA", True, "#b68f40")
             text_width, text_height = main_menu_text.get_size()
@@ -63,16 +55,15 @@ class MainMenu:
                 button.update(self.SCREEN)
 
             pygame.display.update()
+            self.clock.tick(self.config['frame_rate'])
             pygame.mixer.Sound.play(self.sound)
             self.sound.set_volume(self.config['volume'])
             self.handle_events()
-
 
 def main():
     pygame.mixer.init()
     pygame.init()
     pygame.display.set_caption("Laochra")
-    config_service = ConfigService()
     config = config_service.get_config()
 
     main_menu = MainMenu(config)

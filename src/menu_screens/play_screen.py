@@ -1,7 +1,6 @@
 import pygame
 import sys
-from button import Button
-
+from menu_screens.load_screen import LoadScreen
 from config.config_manager import ConfigService
 from menu_screens.create_char import Character
 
@@ -11,6 +10,8 @@ config = config_service.get_config()
 
 class PlayScreen:
     def __init__(self):
+        self.load = LoadScreen()
+        self.config = config
         self.new_char = Character()  # Create an instance of the Character class
         self.SCREEN = pygame.display.set_mode(
             (config['screen_width'], config['screen_height']))
@@ -21,20 +22,9 @@ class PlayScreen:
         return pygame.font.Font(config['menu_font'], size)
 
     def play(self):
-        PLAY_GAME = Button(pos=(config['screen_width'] // 2, 250),
-                           text_input="New Game", font=self.get_font(75),
-                           base_color=config['font_colour'],
-                           hovering_color=config['hovering_font_colour'])
-
-        PLAY_LOAD = Button(pos=(config['screen_width'] // 2, 400),
-                           text_input="Load", font=self.get_font(75),
-                           base_color=config['font_colour'],
-                           hovering_color=config['hovering_font_colour'])
-
-        PLAY_BACK = Button(pos=(config['screen_width'] // 2, 550),
-                           text_input="BACK", font=self.get_font(75),
-                           base_color=config['font_colour'],
-                           hovering_color=config['hovering_font_colour'])
+        PLAY_GAME = config_service.create_text_button((config['screen_width'] // 2, 250), "New Game", config['font_size'])
+        PLAY_LOAD = config_service.create_text_button((config['screen_width'] // 2, 400), "Load Game", config['font_size'])
+        PLAY_BACK = config_service.create_text_button((config['screen_width'] // 2, 550), "BACK", config['font_size'])
 
         while True:
             PLAY_MOUSE_POS = pygame.mouse.get_pos()
@@ -56,6 +46,9 @@ class PlayScreen:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if PLAY_GAME.checkForInput(PLAY_MOUSE_POS):
                         self.new_char.create()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if PLAY_LOAD.checkForInput(PLAY_MOUSE_POS):
+                        self.load.load_game()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
                         return  # Return to the main menu
