@@ -17,34 +17,34 @@ class Character:
         self.BG = pygame.transform.scale(self.BG,
                                          (config['screen_width'], config['screen_height']))
 
-    def get_font(self, size):
-        return pygame.font.Font(config['menu_font'], size)
 
     def create(self):
         while True:
-            OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
+            options_mouse_pos = pygame.mouse.get_pos()
 
             self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
 
-            LEVEL_1 = config_service.create_text_button((config['screen_width'] // 2, 250), "Level One", config['font_size'])
-            OPTIONS_BACK = config_service.create_text_button((config['screen_width'] // 2, 550), "Back", config['font_size'])
+            level_1 = config_service.create_text_button((config['screen_width'] // 2, 250),
+                                                        "Create Character", config['font_size'])
+            options_back = config_service.create_text_button((config['screen_width'] // 2, 550),
+                                                             "Back", config['font_size'])
 
-            LEVEL_1.changeColor(OPTIONS_MOUSE_POS)
-            LEVEL_1.update(self.SCREEN)
+            level_1.changeColor(options_mouse_pos)
+            level_1.update(self.SCREEN)
 
-            OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
-            OPTIONS_BACK.update(self.SCREEN)
+            options_back.changeColor(options_mouse_pos)
+            options_back.update(self.SCREEN)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if LEVEL_1.checkForInput(OPTIONS_MOUSE_POS):
+                    if level_1.checkForInput(options_mouse_pos):
                         pygame.mixer.stop()
                         self.level1_screen.play()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
+                    if options_back.checkForInput(options_mouse_pos):
                         return  # Return to the main menu
 
             pygame.display.update()

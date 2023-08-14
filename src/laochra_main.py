@@ -7,12 +7,19 @@ import math
 
 class MainMenu:
     def __init__(self, config):
+        pygame.mixer.init()  # Initialize mixer before using Sound
+        pygame.init()  # Initialize pygame
+        pygame.display.set_caption("Laochra")
+
         self.clock = pygame.time.Clock()
         self.menu_mouse_pos = None
         self.config = config
         self.play_screen = PlayScreen()
         self.settings = OptionsScreen()
         self.sound = pygame.mixer.Sound(config['menu_music'])
+        self.sound.set_volume(self.config['volume'])  # Adjust the volume
+        pygame.mixer.Sound.play(self.sound)  # Start playing the music
+
         self.SCREEN = pygame.display.set_mode((config['screen_width'], config['screen_height']))
         self.FONT = pygame.font.Font(config['menu_font'], 100)
         self.BG = pygame.image.load(config['background'])
@@ -61,17 +68,11 @@ class MainMenu:
 
             pygame.display.update()
             self.clock.tick(self.config['frame_rate'])
-            pygame.mixer.Sound.play(self.sound)
-            self.sound.set_volume(self.config['volume'])
             self.handle_events()
 
 
 def main():
-    pygame.mixer.init()
-    pygame.init()
-    pygame.display.set_caption("Laochra")
     config = config_service.get_config()
-
     main_menu = MainMenu(config)
     main_menu.run()
 

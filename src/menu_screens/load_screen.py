@@ -14,22 +14,23 @@ class LoadScreen:
         self.BG = pygame.transform.scale(self.BG,
                                          (config['screen_width'], config['screen_height']))
 
-    def get_font(self, size):
-        return pygame.font.Font(config['menu_font'], size)
+
 
     def load_game(self):
         while True:
-            OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
+            load_mouse_pos = pygame.mouse.get_pos()
 
             self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
 
-            fullscreen = config_service.create_text_button((config['screen_width'] // 2, 250), "Load Game", config['font_size'])
-            options_back = config_service.create_text_button((config['screen_width'] // 2, 550), "Back", config['font_size'])
+            fullscreen = config_service.create_text_button((config['screen_width'] // 2, 250),
+                                                           "Load Game", config['font_size'])
+            options_back = config_service.create_text_button((config['screen_width'] // 2, 550),
+                                                             "Back", config['font_size'])
 
-            fullscreen.changeColor(OPTIONS_MOUSE_POS)
+            fullscreen.changeColor(load_mouse_pos)
             fullscreen.update(self.SCREEN)
 
-            options_back.changeColor(OPTIONS_MOUSE_POS)
+            options_back.changeColor(load_mouse_pos)
             options_back.update(self.SCREEN)
 
             for event in pygame.event.get():
@@ -37,7 +38,7 @@ class LoadScreen:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if options_back.checkForInput(OPTIONS_MOUSE_POS):
+                    if options_back.checkForInput(load_mouse_pos):
                         return  # Return to the main menu
 
             pygame.display.update()
