@@ -64,3 +64,7 @@ class ConfigService:
 
     def get_font(self, size):
         return pygame.font.Font(self.config['menu_font'], size)
+"""
+This is used to load and set data from config.ini, 
+In future I may change it so that it loads other ini files
+"""
