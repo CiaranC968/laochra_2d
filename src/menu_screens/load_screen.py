@@ -14,8 +14,6 @@ class LoadScreen:
         self.BG = pygame.transform.scale(self.BG,
                                          (config['screen_width'], config['screen_height']))
 
-
-
     def load_game(self):
         while True:
             load_mouse_pos = pygame.mouse.get_pos()

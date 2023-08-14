@@ -17,7 +17,6 @@ class Character:
         self.BG = pygame.transform.scale(self.BG,
                                          (config['screen_width'], config['screen_height']))
 
-
     def create(self):
         while True:
             options_mouse_pos = pygame.mouse.get_pos()

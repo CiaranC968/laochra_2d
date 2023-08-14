@@ -9,7 +9,7 @@ class MainMenu:
     def __init__(self, config):
         pygame.mixer.init()  # Initialize mixer before using Sound
         pygame.init()  # Initialize pygame
-        pygame.display.set_caption("Laochra")
+        pygame.display.set_caption('Laochra')
 
         self.clock = pygame.time.Clock()
         self.menu_mouse_pos = None

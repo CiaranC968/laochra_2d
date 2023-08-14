@@ -18,12 +18,13 @@ class PlayScreen:
         self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
-
-
     def play(self):
-        PLAY_GAME = config_service.create_text_button((config['screen_width'] // 2, 250), "New Game", config['font_size'])
-        PLAY_LOAD = config_service.create_text_button((config['screen_width'] // 2, 400), "Load Game", config['font_size'])
-        PLAY_BACK = config_service.create_text_button((config['screen_width'] // 2, 550), "BACK", config['font_size'])
+        PLAY_GAME = config_service.create_text_button((config['screen_width'] // 2, 250),
+                                                      "New Game", config['font_size'])
+        PLAY_LOAD = config_service.create_text_button((config['screen_width'] // 2, 400),
+                                                      "Load Game", config['font_size'])
+        PLAY_BACK = config_service.create_text_button((config['screen_width'] // 2, 550),
+                                                      "BACK", config['font_size'])
 
         while True:
             PLAY_MOUSE_POS = pygame.mouse.get_pos()

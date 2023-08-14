@@ -2,19 +2,18 @@ from configparser import ConfigParser
 import pygame
 from menu_objects.text_button import Button
 
-config = ConfigParser()
-config.read('config/config.ini')
-print(config.sections())
-
 
 class ConfigService:
     def __init__(self):
-        screen = config["Screen"]
-        font = config["Font"]
-        images = config['Images']
-        music = config['Music']
-        player = config['Player']
-        controls = config['Controls']
+        self.path = 'config/config.ini'
+        self.config_parser = ConfigParser()
+        self.config_parser.read(self.path)
+        screen = self.config_parser["Screen"]
+        font = self.config_parser["Font"]
+        images = self.config_parser['Images']
+        music = self.config_parser['Music']
+        player = self.config_parser['Player']
+        controls = self.config_parser['Controls']
 
         # Initialize with default configuration values
         self.config = {
@@ -40,6 +39,14 @@ class ConfigService:
             # Add more configuration keys and values as needed.
         }
 
+    def get_config(self):
+        return self.config
+
+    def update_and_write(self, section, key, value):
+        self.config_parser[section][key] = value
+        with open(self.path, 'w') as configfile:
+            self.config_parser.write(configfile)
+
     def create_text_button(self, pos, text, font_size):
         return Button(image=None,
                       pos=pos,
@@ -57,6 +64,3 @@ class ConfigService:
 
     def get_font(self, size):
         return pygame.font.Font(self.config['menu_font'], size)
-
-    def get_config(self):
-        return self.config
