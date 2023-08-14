@@ -8,6 +8,7 @@ pygame.init()
 config_service = ConfigService()
 config = config_service.get_config()
 
+
 class Level1Screen:
     def __init__(self):
         self.bg_width = config['screen_width']
@@ -55,4 +56,3 @@ class Level1Screen:
 
             pygame.mixer.Sound.play(self.sound)
             clock.tick(config['frame_rate'])
-

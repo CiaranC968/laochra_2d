@@ -19,38 +19,38 @@ class PlayScreen:
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
     def play(self):
-        PLAY_GAME = config_service.create_text_button((config['screen_width'] // 2, 300),
+        new_game = config_service.create_text_button((config['screen_width'] // 2, 300),
                                                       "New Game", config['font_size'])
-        PLAY_LOAD = config_service.create_text_button((config['screen_width'] // 2, 400),
+        load_game = config_service.create_text_button((config['screen_width'] // 2, 400),
                                                       "Load Game", config['font_size'])
-        PLAY_BACK = config_service.create_text_button((config['screen_width'] // 2, 550),
+        back = config_service.create_text_button((config['screen_width'] // 2, 550),
                                                       "BACK", config['font_size'])
 
         while True:
-            PLAY_MOUSE_POS = pygame.mouse.get_pos()
+            play_mouse_pos = pygame.mouse.get_pos()
             self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
 
-            PLAY_GAME.changeColor(PLAY_MOUSE_POS)
-            PLAY_GAME.update(self.SCREEN)
+            new_game.changeColor(play_mouse_pos)
+            new_game.update(self.SCREEN)
 
-            PLAY_LOAD.changeColor(PLAY_MOUSE_POS)
-            PLAY_LOAD.update(self.SCREEN)
+            load_game.changeColor(play_mouse_pos)
+            load_game.update(self.SCREEN)
 
-            PLAY_BACK.changeColor(PLAY_MOUSE_POS)
-            PLAY_BACK.update(self.SCREEN)
+            back.changeColor(play_mouse_pos)
+            back.update(self.SCREEN)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if PLAY_GAME.checkForInput(PLAY_MOUSE_POS):
+                    if new_game.checkForInput(play_mouse_pos):
                         self.new_char.create()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if PLAY_LOAD.checkForInput(PLAY_MOUSE_POS):
+                    if load_game.checkForInput(play_mouse_pos):
                         self.load.load_game()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    if back.checkForInput(play_mouse_pos):
                         return  # Return to the main menu
 
             pygame.display.update()

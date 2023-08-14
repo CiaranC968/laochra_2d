@@ -6,7 +6,6 @@ from levels.level_1 import Level1Screen
 config_service = ConfigService()
 config = config_service.get_config()
 
-
 class Character:
     def __init__(self):
         self.sound = pygame.mixer.Sound(config['menu_music'])
@@ -16,6 +15,7 @@ class Character:
         self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG,
                                          (config['screen_width'], config['screen_height']))
+        self.music_playing = False  # Flag to track if music is playing
 
     def create(self):
         while True:
@@ -42,9 +42,15 @@ class Character:
                     if level_1.checkForInput(options_mouse_pos):
                         pygame.mixer.stop()
                         self.level1_screen.play()
+                        self.music_playing = True  # Music is now playing
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if options_back.checkForInput(options_mouse_pos):
                         return  # Return to the main menu
 
+            # Check if music is not playing and play it
+            if not pygame.mixer.get_busy():
+                pygame.mixer.Sound.play(self.sound)
+                self.music_playing = True
+
             pygame.display.update()
-            pygame.mixer.Sound.play(self.sound)
+

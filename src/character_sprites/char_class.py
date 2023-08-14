@@ -10,6 +10,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
         self.animation_speed = 60
+        self.attack_duration = 500  # Duration of attack animation in milliseconds
         self.speed = 10  # Increased movement speed for smoother gameplay
         self.jump_speed = -12
         self.gravity = 1
@@ -17,6 +18,8 @@ class Player(pygame.sprite.Sprite):
         self.old_x = x
         self.current_action = 'ready'
         self.velocity = [0, 0]  # [x_velocity, y_velocity]
+        self.attacking = False
+        self.attack_start_time = 0
 
         self.animation_frames = {
             'ready': [],
@@ -41,18 +44,22 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = y
 
     def attack(self):
-        if self.current_action != 'attack1':
+        if not self.attacking:
+            self.attacking = True
+            self.attack_start_time = pygame.time.get_ticks()
             self.current_action = 'attack1'
 
     def update_animation(self, current_time):
         time_elapsed = current_time - self.last_update_time
+
+        if self.attacking and (current_time - self.attack_start_time >= self.attack_duration):
+            self.attacking = False
+            self.current_action = 'ready'
+
         if time_elapsed >= self.animation_speed:
             self.frame_index = (self.frame_index + 1) % len(self.animation_frames[self.current_action])
             self.image = self.animation_frames[self.current_action][self.frame_index]
             self.last_update_time = current_time
-
-            if self.current_action == 'attack1' and self.frame_index == len(self.animation_frames['attack1']) - 1:
-                self.current_action = 'ready'
 
             if self.current_action == 'jump' and self.frame_index == len(self.animation_frames['jump']) - 1:
                 self.current_action = 'ready'
