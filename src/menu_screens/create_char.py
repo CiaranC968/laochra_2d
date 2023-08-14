@@ -23,7 +23,7 @@ class Character:
 
             self.SCREEN.blit(self.BG, (0, 0))  # Blit the background image first
 
-            level_1 = config_service.create_text_button((config['screen_width'] // 2, 250),
+            level_1 = config_service.create_text_button((config['screen_width'] // 2, 300),
                                                         "Create Character", config['font_size'])
             options_back = config_service.create_text_button((config['screen_width'] // 2, 550),
                                                              "Back", config['font_size'])

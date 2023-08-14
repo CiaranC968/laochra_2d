@@ -25,7 +25,7 @@ class MainMenu:
         self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
-        self.play_button = config_service.create_text_button((config['screen_width'] // 2, 250), "Play",
+        self.play_button = config_service.create_text_button((config['screen_width'] // 2, 300), "Play",
                                                              config['font_size'])
         self.options_button = config_service.create_text_button((config['screen_width'] // 2, 400), "Options",
                                                                 config['font_size'])
