@@ -5,6 +5,7 @@ from config.config_manager import ConfigService
 config_service = ConfigService()
 config = config_service.get_config()
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -107,5 +108,3 @@ class Player(pygame.sprite.Sprite):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-
-

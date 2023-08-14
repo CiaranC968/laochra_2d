@@ -1,7 +1,11 @@
-from configparser import ConfigParser   
+from configparser import ConfigParser
+import pygame
+from menu_objects.text_button import Button
 
 config = ConfigParser()
-config.read('src/config/config.ini')
+config.read('config/config.ini')
+print(config.sections())
+
 
 class ConfigService:
     def __init__(self):
@@ -16,19 +20,18 @@ class ConfigService:
             'screen_width': int(screen["screen_width"]),
             'screen_height': int(screen["screen_height"]),
             'frame_rate': int(screen["frame_rate"]),
-            'ground_level' : int(screen["ground_level"]),
+            'ground_level': int(screen["ground_level"]),
             'font_colour': font["font_colour"],
             'font_size': int(font["font_size"]),
             'hovering_font_colour': font["hovering_font_colour"],
             'background': images['background'],
             'menu_music': music['menu_music'],
             'level_1': images["level_1"],
-            'level_1_1': images["level_1"],
             'menu_font': font["menu_font"],
             'level_1_music': music['level_1_music'],
             'volume': float(music['volume']),
-            'player_width':int(player['player_width']),
-            'player_height':int(player['player_height']),
+            'player_width': int(player['player_width']),
+            'player_height': int(player['player_height']),
             # Add more configuration keys and values as needed.
         }
 

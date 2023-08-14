@@ -3,6 +3,8 @@ import sys
 from menu_screens.play_screen import PlayScreen
 from menu_screens.options_screen import OptionsScreen, config_service
 import math
+
+
 class MainMenu:
     def __init__(self, config):
         self.clock = pygame.time.Clock()
@@ -16,9 +18,12 @@ class MainMenu:
         self.BG = pygame.image.load(config['background'])
         self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
 
-        self.play_button = config_service.create_text_button((config['screen_width'] // 2, 250), "Play", config['font_size'])
-        self.options_button = config_service.create_text_button((config['screen_width'] // 2, 400), "Options", config['font_size'])
-        self.quit_button = config_service.create_text_button((config['screen_width'] // 2, 550), "Quit", config['font_size'])
+        self.play_button = config_service.create_text_button((config['screen_width'] // 2, 250), "Play",
+                                                             config['font_size'])
+        self.options_button = config_service.create_text_button((config['screen_width'] // 2, 400), "Options",
+                                                                config['font_size'])
+        self.quit_button = config_service.create_text_button((config['screen_width'] // 2, 550), "Quit",
+                                                             config['font_size'])
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -59,6 +64,7 @@ class MainMenu:
             pygame.mixer.Sound.play(self.sound)
             self.sound.set_volume(self.config['volume'])
             self.handle_events()
+
 
 def main():
     pygame.mixer.init()
