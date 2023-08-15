@@ -10,12 +10,14 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
         self.animation_speed = 60
-        self.attack_duration = 500  # Duration of attack animation in milliseconds
-        self.speed = 10  # Increased movement speed for smoother gameplay
+        self.attack_duration = 400  # Duration of attack animation in milliseconds
+        self.speed = 5  # Increased movement speed for smoother gameplay
         self.jump_speed = -12
+        self.last_jump_time = 0
         self.gravity = 1
         self.is_jumping = False
         self.old_x = x
+        self.old_y = y
         self.current_action = 'ready'
         self.velocity = [0, 0]  # [x_velocity, y_velocity]
         self.attacking = False
@@ -49,23 +51,56 @@ class Player(pygame.sprite.Sprite):
             self.attack_start_time = pygame.time.get_ticks()
             self.current_action = 'attack1'
 
+            # Store the player's original position
+            self.old_x = self.rect.x
+            self.old_y = self.rect.y
+
+            # Move the sprite right a bit
+            self.rect.x += 10
+            self.rect.y -= 200
+
     def update_animation(self, current_time):
         time_elapsed = current_time - self.last_update_time
 
         if self.attacking and (current_time - self.attack_start_time >= self.attack_duration):
             self.attacking = False
             self.current_action = 'ready'
+            self.rect.x = self.old_x
+            self.rect.y = self.old_y
 
-        if time_elapsed >= self.animation_speed:
-            self.frame_index = (self.frame_index + 1) % len(self.animation_frames[self.current_action])
-            self.image = self.animation_frames[self.current_action][self.frame_index]
-            self.last_update_time = current_time
+        if self.current_action == 'jump' and self.frame_index == len(self.animation_frames['jump']) - 1:
+            self.current_action = 'ready'
 
-            if self.current_action == 'jump' and self.frame_index == len(self.animation_frames['jump']) - 1:
-                self.current_action = 'ready'
+        if self.current_action == 'jump':
+            # Slow down the jump animation by 2 times
+            if time_elapsed >= self.animation_speed * 4:
+                self.frame_index = (self.frame_index + 1) % len(self.animation_frames[self.current_action])
+                self.image = self.animation_frames[self.current_action][self.frame_index]
+                self.last_update_time = current_time
+                self.rect.x += self.velocity[0]  # Update horizontal position during jump
+            elif time_elapsed >= self.animation_speed * 2:
+                self.frame_index = (self.frame_index + 1) % len(self.animation_frames[self.current_action])
+                self.image = self.animation_frames[self.current_action][self.frame_index]
+                self.last_update_time = current_time
 
-            self.rect.x += self.velocity[0]
-            self.update_jump()
+        elif self.current_action == 'attack1':
+            # Display the attack animation frames with a slightly bigger size
+            if time_elapsed >= self.animation_speed:
+                self.frame_index = (self.frame_index + 1) % len(self.animation_frames[self.current_action])
+                attack_frame = self.animation_frames[self.current_action][self.frame_index]
+                self.image = pygame.transform.scale(attack_frame,
+                                                    (config['player_width'] * 2, config['player_height'] * 2))
+                self.last_update_time = current_time
+
+        else:
+            # Regular animation update
+            if time_elapsed >= self.animation_speed:
+                self.frame_index = (self.frame_index + 1) % len(self.animation_frames[self.current_action])
+                self.image = self.animation_frames[self.current_action][self.frame_index]
+                self.last_update_time = current_time
+                self.rect.x += self.velocity[0]  # Update horizontal position during regular actions
+
+                self.update_jump()
 
     def move(self, direction):
         if direction == 'right':
