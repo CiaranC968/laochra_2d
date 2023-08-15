@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.animation_speed = 60
         self.attack_duration = 400  # Duration of attack animation in milliseconds
-        self.speed = 5  # Increased movement speed for smoother gameplay
+        self.speed = 8  # Increased movement speed for smoother gameplay
         self.jump_speed = -12
         self.last_jump_time = 0
         self.gravity = 1
@@ -55,9 +55,16 @@ class Player(pygame.sprite.Sprite):
             self.old_x = self.rect.x
             self.old_y = self.rect.y
 
-            # Move the sprite right a bit
-            self.rect.x += 10
+            # Move the sprite down 200 pixels
             self.rect.y -= 200
+
+        # Check if the attack animation is finished
+        if self.attack_start_time + self.attack_duration <= pygame.time.get_ticks():
+            self.attacking = False
+            self.current_action = 'ready'
+
+            # Move the sprite back to its original position
+            self.rect.y = self.old_y
 
     def update_animation(self, current_time):
         time_elapsed = current_time - self.last_update_time
