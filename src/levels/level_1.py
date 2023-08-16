@@ -28,7 +28,7 @@ class Level1Screen:
 
         self.background_width = self.backgrounds[0].get_width()  # Assuming all background images have the same width
         self.current_time = 0
-        self.player = Player(100, config['screen_height'] - config['player_height'])  # Set sprite initial position
+        self.player = Player(100, 450)  # Set sprite initial position
         self.player_rect = self.player.rect  # Update player_rect attribute
 
     def update_display(self):
@@ -46,7 +46,7 @@ class Level1Screen:
         # Update animations and display
         self.player.handle_events()
         self.player_rect = self.player_rect.move(self.player.velocity)  # Move the player's rect
-        self.player_rect.clamp_ip(self.SCREEN.get_rect().inflate(-600, 0))  # Clamp the player's position
+        self.player_rect.clamp_ip(self.SCREEN.get_rect().inflate(-10, 0))  # Clamp the player's position
 
         # Update animations and display
         self.player.update_animation(current_time)
