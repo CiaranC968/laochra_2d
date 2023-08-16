@@ -9,6 +9,7 @@ config = config_service.get_config()
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
+        self.direction = None
         self.animation_speed = 60
         self.attack_duration = 400  # Duration of attack animation in milliseconds
         self.speed = 8  # Increased movement speed for smoother gameplay
@@ -69,6 +70,14 @@ class Player(pygame.sprite.Sprite):
     def update_animation(self, current_time):
         time_elapsed = current_time - self.last_update_time
 
+        if self.current_action == 'walk':
+            # Flip the sprite image when moving left
+            if self.direction == 'left':
+                self.image = pygame.transform.flip(self.animation_frames[self.current_action][self.frame_index], True,
+                                                   False)
+            else:
+                self.image = self.animation_frames[self.current_action][self.frame_index]
+
         if self.attacking and (current_time - self.attack_start_time >= self.attack_duration):
             self.attacking = False
             self.current_action = 'ready'
@@ -113,11 +122,16 @@ class Player(pygame.sprite.Sprite):
         if direction == 'right':
             self.velocity[0] = self.speed
             self.current_action = 'walk'
+            self.direction = 'right'  # Update player direction
+            print(self.direction)
         elif direction == 'left':
             self.velocity[0] = -self.speed
             self.current_action = 'walk'
+            self.direction = 'left'  # Update player direction
+            print(self.direction)
         else:
             self.velocity[0] = 0
+
 
     def jump(self):
         if not self.is_jumping:

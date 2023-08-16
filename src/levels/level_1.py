@@ -26,23 +26,17 @@ class Level1Screen:
     def update_display(self):
         current_time = pygame.time.get_ticks()
 
-        # Scroll the background
-        amount_to_scroll = self.player.rect.x - self.bg_scroll
+        # Generate a random number for the speed modifier
+        speed_modifier = 0
 
-        # Calculate the speed modifier
-        if self.player.rect.x > config['screen_width'] / 4:
-            speed_modifier = 0.1
-        elif self.player.rect.x > config['screen_width'] / 2:
-            speed_modifier = 0.2
-        elif self.player.rect.x > 3 * config['screen_width'] / 4:
-            speed_modifier = 0.3
-        else:
-            speed_modifier = 0
+        # Scroll the background
+        amount_to_scroll = self.player.rect.x - config['screen_width']
 
         # Check if the amount to scroll is greater than the width of the background
-        if amount_to_scroll > self.BG.get_width() * speed_modifier:
+        if amount_to_scroll > self.BG.get_width() * 10:
+            print(f"amount to scroll{amount_to_scroll}")
             # Scroll the background to the left
-            self.bg_scroll -= amount_to_scroll * speed_modifier
+            self.bg_scroll -= amount_to_scroll * 10
 
             # Keep the background within the screen bounds
             if self.bg_scroll < 0:
@@ -54,8 +48,6 @@ class Level1Screen:
 
         # Scroll the background based on the player's movement
         self.bg_scroll += self.player.velocity[0] * current_time / 9000
-
-        self.SCREEN.blit(self.BG, (self.bg_x - self.bg_scroll, self.bg_y))
 
         for i in range(0, int(config['screen_width'] / self.BG.get_width()) + 15):
             self.SCREEN.blit(self.BG, (i * self.BG.get_width() - self.bg_scroll, self.bg_y))
