@@ -39,8 +39,8 @@ class Level1Screen:
         self.player_rect = self.player_rect.move(self.player.velocity)  # Move the player's rect
 
         # Calculate the clamping bounds based on the player's position
-        clamp_left = 600
-        clamp_right = 600
+        clamp_left = 400
+        clamp_right = 400
         self.player_rect.x = max(clamp_left, min(clamp_right, self.player_rect.x))
 
         # Determine when to start scrolling based on player's position and an offset
