@@ -4,64 +4,53 @@ import pygame
 from config.config_manager import ConfigService
 from character_sprites.char_class import Player
 
-# Initialize Pygame and Pygame mixer once at the beginning
 pygame.mixer.init()
 pygame.init()
 
 config_service = ConfigService()
 config = config_service.get_config()
 
+# ... (your imports and initialization code)
 
 class Level1Screen:
     def __init__(self):
-        self.bg_width = config['screen_width']
         self.bg_speed = 5
         self.bg_scroll = 0
         self.sound = pygame.mixer.Sound(config['level_1_music'])
         self.SCREEN = pygame.display.set_mode((config['screen_width'], config['screen_height']))
-        self.BG = pygame.image.load(config['level_1']).convert()
-        self.BG = pygame.transform.scale(self.BG, (config['screen_width'], config['screen_height']))
-        self.bg_x = 0
-        self.bg_y = 0
-        self.current_time = 0
-        self.player = Player(100, 450)
 
+        # Load and scale the background images
+        self.backgrounds = []
+        for i in range(1, 3):
+            bg_image = pygame.image.load(f"images/background_layer_{i}.png").convert_alpha()
+            bg_image = pygame.transform.scale(bg_image, (config['screen_width'], config['screen_height']))
+            self.backgrounds.append(bg_image)
+
+        self.background_width = self.backgrounds[0].get_width()  # Assuming all background images have the same width
+        self.current_time = 0
+        self.player = Player(100, config['screen_height'] - config['player_height'])  # Set sprite initial position
+        self.player_rect = self.player.rect  # Update player_rect attribute
 
     def update_display(self):
         current_time = pygame.time.get_ticks()
 
-        # Generate a random number for the speed modifier
-        speed_modifier = 0
+        # Calculate the scroll amount based on the player's position
+        self.bg_scroll = -self.player_rect.x // self.bg_speed
 
-        # Scroll the background
-        amount_to_scroll = self.player.rect.x - config['screen_width']
+        # Draw the background layers
+        for i, bg in enumerate(self.backgrounds):
+            visible_background_right = (self.bg_scroll // (i + 1)) % self.background_width
+            self.SCREEN.blit(bg, (visible_background_right - self.background_width, 0))
+            self.SCREEN.blit(bg, (visible_background_right, 0))
 
-        # Check if the amount to scroll is greater than the width of the background
-        if amount_to_scroll > self.BG.get_width() * 10:
-            print(f"amount to scroll{amount_to_scroll}")
-            # Scroll the background to the left
-            self.bg_scroll -= amount_to_scroll * 10
-
-            # Keep the background within the screen bounds
-            if self.bg_scroll < 0:
-                self.bg_scroll = 0
-
-        # Otherwise, scroll the background normally
-        else:
-            self.bg_scroll += amount_to_scroll * speed_modifier
-
-        # Scroll the background based on the player's movement
-        self.bg_scroll += self.player.velocity[0] * current_time / 6000
-
-        for i in range(0, int(config['screen_width'] / self.BG.get_width()) + 15):
-            self.SCREEN.blit(self.BG, (i * self.BG.get_width() - self.bg_scroll, self.bg_y))
-
-        # Update the player's position
-        self.player.handle_events()
-        self.player.rect.clamp_ip(self.SCREEN.get_rect().inflate(-600, 0))  # Clamp the player's position
         # Update animations and display
-        self.SCREEN.blit(self.player.image, self.player.rect)
+        self.player.handle_events()
+        self.player_rect = self.player_rect.move(self.player.velocity)  # Move the player's rect
+        self.player_rect.clamp_ip(self.SCREEN.get_rect().inflate(-600, 0))  # Clamp the player's position
+
+        # Update animations and display
         self.player.update_animation(current_time)
+        self.SCREEN.blit(self.player.image, self.player_rect.topleft)  # Draw the player sprite
         pygame.display.update()
 
     def play(self):
@@ -80,3 +69,5 @@ class Level1Screen:
 
             pygame.mixer.Sound.play(self.sound)
             clock.tick(config['frame_rate'])
+
+

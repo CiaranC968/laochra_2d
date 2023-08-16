@@ -2,7 +2,7 @@ import pygame
 import sys
 from menu_screens.load_screen import LoadScreen
 from config.config_manager import ConfigService
-from menu_screens.create_char import Character
+from menu_screens.chose_char_play_screen import Character
 
 config_service = ConfigService()
 config = config_service.get_config()

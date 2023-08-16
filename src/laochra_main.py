@@ -1,6 +1,6 @@
 import pygame
 import sys
-from menu_screens.play_screen import PlayScreen
+from menu_screens.new_game_load_screen import PlayScreen
 from menu_screens.options_screen import OptionsScreen, config_service
 import math
 

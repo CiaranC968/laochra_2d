@@ -48,6 +48,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+
     def attack(self):
         if not self.attacking:
             self.attacking = True
