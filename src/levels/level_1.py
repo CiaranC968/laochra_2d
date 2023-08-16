@@ -14,7 +14,7 @@ config = config_service.get_config()
 
 class Level1Screen:
     def __init__(self):
-        self.bg_speed = 5
+        self.bg_speed = 10
         self.bg_scroll = 0
         self.sound = pygame.mixer.Sound(config['level_1_music'])
         self.SCREEN = pygame.display.set_mode((config['screen_width'], config['screen_height']))
@@ -34,19 +34,28 @@ class Level1Screen:
     def update_display(self):
         current_time = pygame.time.get_ticks()
 
-        # Calculate the scroll amount based on the player's position
-        self.bg_scroll = -self.player_rect.x // self.bg_speed
+        # Update the player's position based on velocity
+        self.player.handle_events()
+        self.player_rect = self.player_rect.move(self.player.velocity)  # Move the player's rect
+
+        # Calculate the clamping bounds based on the player's position
+        clamp_left = 600
+        clamp_right = 600
+        self.player_rect.x = max(clamp_left, min(clamp_right, self.player_rect.x))
+
+        # Determine when to start scrolling based on player's position and an offset
+        scroll_start_offset = config['screen_width'] // 4  # Adjust this offset as needed
+        if self.player_rect.right >= scroll_start_offset:
+            self.bg_scroll -= self.player.velocity[0]  # Scroll the background
+
+        # Clear the screen
+        self.SCREEN.fill((0, 0, 0))
 
         # Draw the background layers
         for i, bg in enumerate(self.backgrounds):
             visible_background_right = (self.bg_scroll // (i + 1)) % self.background_width
             self.SCREEN.blit(bg, (visible_background_right - self.background_width, 0))
             self.SCREEN.blit(bg, (visible_background_right, 0))
-
-        # Update animations and display
-        self.player.handle_events()
-        self.player_rect = self.player_rect.move(self.player.velocity)  # Move the player's rect
-        self.player_rect.clamp_ip(self.SCREEN.get_rect().inflate(-10, 0))  # Clamp the player's position
 
         # Update animations and display
         self.player.update_animation(current_time)

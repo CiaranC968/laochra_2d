@@ -13,7 +13,7 @@ class Player(pygame.sprite.Sprite):
         self.animation_speed = 100
         self.attack_duration = 300  # Duration of attack animation in milliseconds
         self.jump_animation_speed = 100  # Adjust this value to control the jump animation speed
-        self.speed = 8  # Increased movement speed for smoother gameplay
+        self.speed = 12  # Increased movement speed for smoother gameplay
         self.jump_speed = -12
         self.last_jump_time = 0
         self.gravity = 1
