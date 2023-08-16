@@ -54,8 +54,7 @@ class Level1Screen:
 
         # Update the player's position
         self.player.handle_events()
-        self.player.rect.clamp_ip(self.SCREEN.get_rect())  # Clamp the player's position
-
+        self.player.rect.clamp_ip(self.SCREEN.get_rect().inflate(-600, 0))  # Clamp the player's position
         # Update animations and display
         self.SCREEN.blit(self.player.image, self.player.rect)
         self.player.update_animation(current_time)

@@ -10,8 +10,8 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
         self.direction = None
-        self.animation_speed = 60
-        self.attack_duration = 400  # Duration of attack animation in milliseconds
+        self.animation_speed = 100
+        self.attack_duration = 300  # Duration of attack animation in milliseconds
         self.jump_animation_speed = 100  # Adjust this value to control the jump animation speed
         self.speed = 8  # Increased movement speed for smoother gameplay
         self.jump_speed = -12
@@ -34,12 +34,11 @@ class Player(pygame.sprite.Sprite):
             'attack1': []
         }
 
-        self.original_size = (config['player_width'], config['player_height'])  # Store original size
         self.last_update_time = pygame.time.get_ticks()
 
         for action in self.animation_frames.keys():
             for i in range(1, 7):
-                frame = pygame.image.load(f"character_sprites/axe_origin/{action}_{i}.png")
+                frame = pygame.image.load(f"character_sprites/axe_origin/{action}_{i}.png").convert_alpha()
                 frame = pygame.transform.scale(frame, (config['player_width'], config['player_height']))
                 self.animation_frames[action].append(frame)
 
