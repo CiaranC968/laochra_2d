@@ -35,16 +35,18 @@ class MainMenu:
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                self.cleanup()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.play_button.checkForInput(self.menu_mouse_pos):
                     self.play_screen.play()
                 if self.options_button.checkForInput(self.menu_mouse_pos):
                     self.settings.options()
                 if self.quit_button.checkForInput(self.menu_mouse_pos):
-                    pygame.quit()
-                    sys.exit()
+                    self.cleanup()
+
+    def cleanup(self):
+        pygame.quit()
+        sys.exit()
 
     def run(self):
         while True:

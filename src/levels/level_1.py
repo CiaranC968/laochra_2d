@@ -1,7 +1,10 @@
+import sys
+
 import pygame
 from config.config_manager import ConfigService
 from character_sprites.char_class import Player
 
+# Initialize Pygame and Pygame mixer once at the beginning
 pygame.mixer.init()
 pygame.init()
 
@@ -22,6 +25,7 @@ class Level1Screen:
         self.bg_y = 0
         self.current_time = 0
         self.player = Player(100, 450)
+
 
     def update_display(self):
         current_time = pygame.time.get_ticks()
@@ -47,7 +51,7 @@ class Level1Screen:
             self.bg_scroll += amount_to_scroll * speed_modifier
 
         # Scroll the background based on the player's movement
-        self.bg_scroll += self.player.velocity[0] * current_time / 9000
+        self.bg_scroll += self.player.velocity[0] * current_time / 6000
 
         for i in range(0, int(config['screen_width'] / self.BG.get_width()) + 15):
             self.SCREEN.blit(self.BG, (i * self.BG.get_width() - self.bg_scroll, self.bg_y))
@@ -64,7 +68,11 @@ class Level1Screen:
         clock = pygame.time.Clock()
 
         while True:
-            self.player.handle_events()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
             # Update animations and display
             current_time = pygame.time.get_ticks()
             self.player.update_animation(current_time)
