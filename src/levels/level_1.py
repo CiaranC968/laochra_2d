@@ -10,8 +10,6 @@ pygame.init()
 config_service = ConfigService()
 config = config_service.get_config()
 
-# ... (your imports and initialization code)
-
 class Level1Screen:
     def __init__(self):
         self.bg_speed = 10
